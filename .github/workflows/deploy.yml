@@ -33,6 +33,7 @@ jobs:
           mkdir -p deploy-package
           cp -r dist/* deploy-package/
           cp appspec.yml deploy-package/
+          cp header.html deploy-package/
           cp -r scripts deploy-package/
           cd deploy-package
           zip -r ../deploy-package.zip *
