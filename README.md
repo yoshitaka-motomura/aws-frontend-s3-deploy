@@ -71,6 +71,8 @@ sudo ./install auto
 
 ### CodeDeploy
 
+E.g: [http://ec2-via-codedeploy.cristallum.io/](http://ec2-via-codedeploy.cristallum.io/)
+
 - アプリケーションの作成
 - デプロイグループの作成
     - デプロイグループ名
@@ -89,3 +91,4 @@ sudo ./install auto
 - CodeDeployでデプロイを実行
 
 ![デプロイの設定](img/ss.png)
+
