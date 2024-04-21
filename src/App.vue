@@ -3,6 +3,7 @@
 <template>
   <main>
     <h1>AWS CodeDeploy with AWS</h1>
+    <p>Deploy ACT2</p>
   </main>
 </template>
 
