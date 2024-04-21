@@ -30,7 +30,7 @@ jobs:
           aws-region: ap-northeast-1
       - name: Upload to S3
         run: |
-          aws s3 sync dist/ s3://cristallum-frontend-deploy-bucket --no-progress
+          aws s3 sync dist/ s3://cristallum-frontend-deploy-bucket/dist --no-progress
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
