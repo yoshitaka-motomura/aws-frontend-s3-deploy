@@ -1,39 +1,91 @@
 # aws-frontend-s3-deploy
 
-This template should help get you started developing with Vue 3 in Vite.
+s3 bucket deployment with codeDeploy
 
-## Recommended IDE Setup
+> [!NOTE]
+> 
+> アプリケーションをS3に配置してそれをCodeDeployでEC2にデプロイするサンプル
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 準備
 
-## Type Support for `.vue` Imports in TS
+### ポリシーの作成
+**EC2用のIAMロールを作成しポリシーをアタッチする**
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+| ロール名 | ポリシー |
+|:----- |:----- |
+|　任意の名前 | AmazonEC2RoleforAWSCodeDeploy <br>AmazonSSMManagedInstanceCore <br>AmazonS3ReadOnlyAccess  |
 
-## Customize configuration
+**CodeDeploy用のIAMロールを作成しポリシーをアタッチする**
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+| ロール名 | ポリシー |
+|:----- |:----- |
+|　任意の名前 | AWSCodeDeployRole |
+---
+### S3のバケット作成
+バケット名は任意の名前で作成する
+1. パブリックアクセスをすべてブロック [バケット→アクセス許可]
+2. バケットのバージョニングを有効にする　[バケット→バケットのバージョニング]
 
-## Project Setup
+**バケットポリシーを設定する**
 
-```sh
-npm install
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "CodeDeployRoleのARN"
+            },
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": "対象のバケットのARN"
+        }
+    ]
+}
 ```
 
-### Compile and Hot-Reload for Development
+### EC2
+ミドルウェア関係のインストールは省略
 
-```sh
-npm run dev
+- タグを設定する　
+Key: CodeDeploy Value: True <br>(CodeDeployのフィルタリングに使用任意です)
+- 前述したIAMロールをアタッチする
+アタッチされたか確認する
+```bash
+aws ec2 describe-instances --instance-ids {instace-id} --query 'Reservations[].Instances[].IamInstanceProfile.Arn'
+```
+- CodeDeployエージェントのインストール
+```bash
+sudo yum update -y
+sudo yum install -y ruby
+sudo yum install -y wget
+cd /home/ec2-user
+wget https://aws-codedeploy-ap-northeast-1.s3.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
 ```
 
-### Type-Check, Compile and Minify for Production
 
-```sh
-npm run build
-```
+### CodeDeploy
 
-### Lint with [ESLint](https://eslint.org/)
+- アプリケーションの作成
+- デプロイグループの作成
+    - デプロイグループ名
+    - サービスロール (前述に作成したCodeDeploy用のIAMロールを指定)
+    - デプロイタイプ （インプレースかBlue/Greenのどちらかを選択）
+- 環境設定
+    - Amazon EC2 インスタンスを選択
+    - タググループ　EC2で指定したタグを設定
+- デプロイ設定
+    - CodeDeployDefault.OneAtATimeを選択(運用次第で変更)
+- Load balancer
+  - ロードバランサーを使う場合は「ロードバランサーを使用する」を選択
 
-```sh
-npm run lint
-```
+### アプリケーションのデプロイ
+- S3にアプリケーションをアップロード
+- CodeDeployでデプロイを実行
+
+![デプロイの設定](img/ss.png)
