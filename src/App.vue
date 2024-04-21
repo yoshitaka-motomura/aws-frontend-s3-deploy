@@ -2,8 +2,7 @@
 
 <template>
   <main>
-    <h1>AWS CodeDeploy with AWS</h1>
-    <p>Deploy ACT2</p>
+    <h1>EC2 Content Deployed Powered by AWS CodeDeploy</h1>
   </main>
 </template>
 
