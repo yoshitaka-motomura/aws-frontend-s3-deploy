@@ -8,7 +8,16 @@
         >Github</a
       >
     </p>
-    <p>Codepipline Start Trigger</p>
+    <hr />
+    <h2>Deploy Trigger CodePipeline Process</h2>
+    <ul>
+      <li>Set release tags matching 'v*'</li>
+      <li>Matching tags trigger GitHub Actions!</li>
+      <li>AWS S3 uploads the deployment package</li>
+      <li>CodePipeline starts</li>
+      <li>CodeDeploy starts</li>
+      <li>EC2 deployment finished</li>
+    </ul>
   </main>
 </template>
 
