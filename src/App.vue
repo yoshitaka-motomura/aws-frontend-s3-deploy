@@ -3,12 +3,23 @@
 <template>
   <main>
     <h1>EC2 Content Deployed Powered by AWS CodeDeploy</h1>
+    <p>
+      Example:<a href="https://github.com/yoshitaka-motomura/aws-frontend-s3-deploy" target="_blank"
+        >Github</a
+      >
+    </p>
   </main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+main {
+  width: 100%;
+}
+h1 {
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
 }
 
 .logo {
