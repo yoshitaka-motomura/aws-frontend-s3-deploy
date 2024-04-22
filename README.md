@@ -71,7 +71,7 @@ sudo ./install auto
 
 ### CodeDeploy
 
-E.g: [http://ec2-via-codedeploy.cristallum.io/](http://ec2-via-codedeploy.cristallum.io/)
+E.g: [https://ec2.cristallum.io/](https://ec2.cristallum.io/)
 
 - アプリケーションの作成
 - デプロイグループの作成
