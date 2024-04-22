@@ -2,7 +2,6 @@
 
 <template>
   <main>
-　　　<p>ACT</p>
     <h1>EC2 Content Deployed Powered by AWS CodeDeploy</h1>
     <p>
       Example:<a href="https://github.com/yoshitaka-motomura/aws-frontend-s3-deploy" target="_blank"
@@ -19,6 +18,8 @@
       <li>CodeDeploy starts</li>
       <li>EC2 deployment finished</li>
     </ul>
+    <hr />
+    <h2>Experience Next-Level Laravel Deployment on EC2 with PHP-FPM through CodeDeploy!</h2>
   </main>
 </template>
 
