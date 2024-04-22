@@ -2,6 +2,7 @@
 
 <template>
   <main>
+　　　<p>ACT</p>
     <h1>EC2 Content Deployed Powered by AWS CodeDeploy</h1>
     <p>
       Example:<a href="https://github.com/yoshitaka-motomura/aws-frontend-s3-deploy" target="_blank"
