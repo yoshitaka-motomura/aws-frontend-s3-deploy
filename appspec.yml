@@ -4,6 +4,10 @@ files:
   - source: /
     destination: /var/www/html/
 hooks:
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      timeout: 300
+      runas: ec2-user
   AfterInstall:
     - location: scripts/restart_nginx.sh
       timeout: 300
