@@ -14,7 +14,8 @@ REGION="ap-northeast-1"
 secret_values=$(aws secretsmanager get-secret-value --secret-id "${SECRET_ID}" --region "${REGION}" | jq -r .SecretString)
 
 if [ ! -f .env ]; then
-    cp .env.example .env
+    #cp .env.example .env
+    touch .env
 fi
 
 echo "${secret_values}" | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" | while IFS= read -r line; do
