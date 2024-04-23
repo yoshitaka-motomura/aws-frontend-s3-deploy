@@ -3,6 +3,19 @@ os: linux
 files:
   - source: /
     destination: /var/www/html/
+permissions:
+  - object: /var/www/html
+    owner: ec2-user
+    group: nginx
+    mode: 750
+    type:
+      - directory
+  - object: /var/www/html
+    owner: ec2-user
+    group: nginx
+    mode: 640
+    type:
+      - file
 hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
